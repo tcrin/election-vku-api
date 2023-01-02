@@ -14,6 +14,8 @@ require('./app/routes/sign_in_routes.js')(app);
 require('./app/routes/position_routes.js')(app);
 require('./app/routes/event_routes.js')(app);
 require('./app/routes/voter_routes')(app);
+require('./app/routes/candidate_routes')(app);
+require('./app/routes/event_candidate_routes')(app);
 
 
 app.listen(process.env.PORT || 3000)
