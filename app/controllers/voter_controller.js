@@ -42,10 +42,10 @@ exports.insertVoter = async (req, res) => {
 };
 
 exports.updateVoter = async (req, res) => {
-  let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, id_voter } = req.body;
+  let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid } = req.body;
   db.query(
-    "UPDATE voter SET first_name = $1, last_name = $2, dob = $3, cccd = $4, classes = $5, avatar_url = $6, achievement = $7, title = $8, id_voter = $10 WHERE uid = $9;",
-    [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, id_voter],
+    "UPDATE voter SET first_name = $1, last_name = $2, dob = $3, cccd = $4, classes = $5, avatar_url = $6, achievement = $7, title = $8 WHERE uid = $9;",
+    [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid],
     (err, result) => {
       if (!err) {
         res.send("Update was successful");
