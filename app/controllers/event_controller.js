@@ -39,10 +39,11 @@ exports.getEventById = async (req, res) => {
 };
 
 exports.insertEvent = async (req, res) => {
-  let { event, classed, end_at, id_position } = req.body;
+  let { event, classed, end_at, position, txt_hash, block_number, status, timestamp_txt, address_from, address_to } = req.body;
   db.query(
-    'INSERT INTO "event"("event","classed", end_at, id_position) VALUES ($1, $2, $3, $4);',
-    [event, classed, end_at, id_position],
+    `INSERT INTO "event"("event","classed", end_at, position, txt_hash, block_number, status, timestamp_txt, address_from, address_to) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`,
+    [event, classed, end_at, position, txt_hash, block_number, status, timestamp_txt, address_from, address_to],
     (err, result) => {
       if (!err) {
         //res.send(result);

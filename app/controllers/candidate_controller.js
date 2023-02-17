@@ -1,5 +1,15 @@
 const db = require("../common/connect");
 
+exports.getStudent = async(req, res) => {
+  db.query("Select * from student;", (err, result) => {
+    if (err) {
+      res.send("Lỗi");
+    } else {
+      res.send({ result: result.rows });
+    }
+  });
+}
+
 exports.getAllCandidate = async (req, res) => {
   db.query("SELECT * FROM candidate", (err, result) => {
     if (err) {
@@ -11,10 +21,11 @@ exports.getAllCandidate = async (req, res) => {
 };
 
 exports.insertCandidate = async (req, res) => {
-  let { vote, accept, id_voter } = req.body;
+  let { vote, accept, winner , txt_hash , block_number , status , timestamp_txt , address_from , address_to , id_voter } = req.body;
   db.query(
-    "insert into candidate(vote, accept, id_voter) values ($1, $2, $3)",
-    [vote, accept, id_voter],
+    `insert into candidate(vote, accept, winner , txt_hash , block_number , status , timestamp_txt , address_from , address_to , id_voter) 
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    [vote, accept, winner , txt_hash , block_number , status , timestamp_txt , address_from , address_to , id_voter],
     (err, result) => {
       if (!err) {
         //res.send(result);

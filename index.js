@@ -16,10 +16,12 @@ require('./app/routes/event_routes.js')(app);
 require('./app/routes/voter_routes')(app);
 require('./app/routes/candidate_routes')(app);
 require('./app/routes/event_candidate_routes')(app);
+require('./app/routes/full_info_routes')(app);
+require('./app/routes/history_routes')(app);
 
 
 app.listen(process.env.PORT || 3000)
-
+console.log("Server listening on http://localhost:3000");
 // app.listen(3000, () => {
 //   console.log("Server listening on http://localhost:3000");
 // });
