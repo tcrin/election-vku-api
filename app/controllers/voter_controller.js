@@ -26,10 +26,10 @@ exports.getVoterSignIn = async (req, res) => {
 
 
 exports.insertVoter = async (req, res) => {
-  let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid } = req.body;
+  let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender, is_candidate} = req.body;
   db.query(
-    "insert into voter(first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
-    [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid],
+    "insert into voter(first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender, is_candidate) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
+    [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender, is_candidate],
     (err, result) => {
       if (!err) {
         //res.send(result);
@@ -42,10 +42,25 @@ exports.insertVoter = async (req, res) => {
 };
 
 exports.updateVoter = async (req, res) => {
-  let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid } = req.body;
+  let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender } = req.body;
   db.query(
-    "UPDATE voter SET first_name = $1, last_name = $2, dob = timestamp'$3', cccd = $4, classes = $5, avatar_url = $6, achievement = $7, title = $8 WHERE uid = $9;",
-    [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid],
+    "UPDATE voter SET first_name = $1, last_name = $2, dob = timestamp'$3', cccd = $4, classes = $5, avatar_url = $6, achievement = $7, title = $8, gender = $10 WHERE uid = $9;",
+    [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender],
+    (err, result) => {
+      if (!err) {
+        res.send("Update was successful");
+      } else {
+        console.log(err.message);
+      }
+    }
+  );
+};
+
+exports.updateVoterIsCandidate = async (req, res) => {
+  let { is_candidate, id_voter } = req.body;
+  db.query(
+    "UPDATE voter SET is_candidate = $1 WHERE id_voter = $2;",
+    [is_candidate, id_voter],
     (err, result) => {
       if (!err) {
         res.send("Update was successful");

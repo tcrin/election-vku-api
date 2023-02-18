@@ -16,10 +16,25 @@ const client = new Client({
   ssl: {
     rejectUnauthorized: false,
   },
+  connectionTimeoutMillis: 5000,
 })
 
-client.connect(function (err) {
-  if (err) console.log("Kết nối thất bại");
+client.connect((err) => {
+  if (err) {
+    console.error('Error during connection:', err);
+    return;
+  }
+  console.log('Connected to database');
+});
+
+// Xử lý sự kiện lỗi kết nối
+client.on('error', (err) => {
+  console.error('Database error:', err);
+});
+
+// Xử lý sự kiện ECONNRESET
+client.on('end', () => {
+  console.log('Database connection terminated');
 });
 
 module.exports = client;
