@@ -3,8 +3,9 @@ const { Client, Pool } = require("pg");
 const client = new Client({
   connectionString: "postgres://tcrin:WgODMoykqLKgQqCFzhXBZFRtakMP925y@dpg-cfno5cirrk0eqlq8j8i0-a.singapore-postgres.render.com/electionvkudb" ,
   ssl: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
   },
+  acquireConnectionTimeout: 1000000
 });
 
 async function connectToDatabase() {
