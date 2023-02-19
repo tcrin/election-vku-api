@@ -15,7 +15,9 @@ const client = new Client({
   port: 5432,
   ssl: {
     rejectUnauthorized: false,
-  }
+  },
+  idleTimeoutMillis: 0,
+  connectionTimeoutMillis: 0,
 })
 
 client.connect((err) => {
