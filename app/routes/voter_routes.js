@@ -8,4 +8,5 @@ module.exports = function(router){
     router.delete("/voter/:uid", voterController.deleteVoter)
     //router.get('/voter-sign-in/:uid', voterController.getVoterAndSignInByUid);
     router.get('/voter/:uid', voterController.getVoterByUid);
+    router.get('/voter-sign-in/:uid', voterController.getUserByUid );
 };

@@ -36,6 +36,32 @@ exports.insertCandidate = async (req, res) => {
     }
   );
 };
+exports.getCandidateEvent = async (req, res) => {
+  db.query("SELECT * FROM event_candidate_cross_ref", (err, result) => {
+    if (err) {
+      res.send("Lỗi");
+    } else {
+      res.send({ result: result.rows });
+    }
+  });
+};
+
+exports.insertCandidateToEvent = async (req, res) => {
+  let { id_event, idCandidate } = req.body;
+  db.query(
+    `INSERT into event_candidate_cross_ref(id_event, idCandidate)
+    values ($1, $2)`,
+    [id_event, idCandidate],
+    (err, result) => {
+      if (!err) {
+        //res.send(result);
+        res.send("Insertion was successful");
+      } else {
+        console.log(err.message);
+      }
+    }
+  );
+};
 
 exports.updateCandidate = async (req, res) => {
   let { vote, accept, id_voter, idCandidate } = req.body;
@@ -52,6 +78,20 @@ exports.updateCandidate = async (req, res) => {
   );
 };
 
+exports.updateCandidateAccept = async (req, res) => {
+  let { id_voter } = req.body;
+  db.query(
+    "UPDATE candidate SET accept = true WHERE id_voter = $1;",
+    [ id_voter ],
+    (err, result) => {
+      if (!err) {
+        res.send("Update was successful");
+      } else {
+        console.log(err.message);
+      }
+    }
+  );
+};
 
 exports.deleteCandidate = async (req, res) => {
   let { idCandidate } = req.params;

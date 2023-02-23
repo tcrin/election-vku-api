@@ -94,13 +94,20 @@ exports.getVoterByUid = async (req, res) => {
   });
 };
 
-// exports.getVoterAndSignInByUid = async (req, res) => {
-//   let { uid } = req.params;
-//   db.query("select id_voter , first_name , last_name , dob , cccd , classes , avatar_url , achievement , title , voter.uid, signin.phone , signin.email , signin.created_at from voter WHERE uid = $1;", [uid], (err, result) => {
-//     if (err) {
-//       res.send("Lỗi");
-//     } else {
-//       res.send({ result: result.rows });
-//     }
-//   });
-// };
+exports.getUserByUid = async (req, res) => {
+  var { uid } = req.params;
+  db.query(
+    `SELECT voter.uid as voter_uid, signin.uid as signin_uid, *
+    FROM voter INNER JOIN signin
+    ON voter.uid = signin.uid
+    where signin.uid = $1;`,
+   [uid],
+    (err, result) => {
+      if (err) {
+        res.send("Lỗi");
+      } else {
+        res.send({ result: result.rows });
+      }
+    }
+  );
+};
