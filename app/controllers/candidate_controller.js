@@ -64,10 +64,10 @@ exports.insertCandidateToEvent = async (req, res) => {
 };
 
 exports.updateCandidate = async (req, res) => {
-  let { vote, accept, id_voter, idCandidate } = req.body;
+  let { idCandidate , vote , accept , winner , txt_hash , block_number , status , timestamp_txt , address_from , address_to , id_voter} = req.body;
   db.query(
-    "UPDATE candidate SET vote = $1, accept = $2, id_voter = $3 WHERE idCandidate = $4;",
-    [vote, accept, id_voter, idCandidate],
+    "UPDATE candidate SET vote = $2, accept = $3, winner = $4, txt_hash = $5 , block_number = $6, status = $7, timestamp_txt = $8, address_from = $9, address_to = $10, id_voter =$11 WHERE idCandidate = $1;",
+    [idCandidate , vote , accept , winner , txt_hash , block_number , status , timestamp_txt , address_from , address_to , id_voter],
     (err, result) => {
       if (!err) {
         res.send("Update was successful");

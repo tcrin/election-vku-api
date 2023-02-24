@@ -44,7 +44,7 @@ exports.insertVoter = async (req, res) => {
 exports.updateVoter = async (req, res) => {
   let { first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender } = req.body;
   db.query(
-    "UPDATE voter SET first_name = $1, last_name = $2, dob = timestamp'$3', cccd = $4, classes = $5, avatar_url = $6, achievement = $7, title = $8, gender = $10 WHERE uid = $9;",
+    "UPDATE voter SET first_name = $1, last_name = $2, dob = $3, cccd = $4, classes = $5, avatar_url = $6, achievement = $7, title = $8, gender = $10 WHERE uid = $9;",
     [first_name, last_name, dob, cccd, classes, avatar_url, achievement, title, uid, gender],
     (err, result) => {
       if (!err) {
